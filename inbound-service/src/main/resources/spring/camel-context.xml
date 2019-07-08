@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:cxf="http://camel.apache.org/schema/cxf"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd        ">
+    
+    <camelContext id="inbound-service" xmlns="http://camel.apache.org/schema/spring" >
+        <rest id="rest-4f7ff4d5-43d2-4565-9c9d-8dd901063777" path="/restsvc">
+            <get id="get-b89a3139-a697-4e53-bb2e-45c91898733c" uri="/ping">
+                <route>
+                    <setBody>
+                        <method ref="myTransformer"/>
+                    </setBody>
+                </route>
+            </get>
+        </rest>
+        <route id="http-receiver">
+            <from id="http-receiver-starter" uri="servlet://ping"/>
+            <setHeader headerName="Content-Type" id="_setHeader1">
+                <constant>application/json</constant>
+            </setHeader>
+            <setBody id="_setBody1">
+                <constant>{"msg" : "HELLO"}</constant>
+            </setBody>
+        </route>
+        <route id="inbound-orchestration">
+            <from uri="direct:inbound-orchestration-starter"/>
+            <log message="${body}"/>
+            <log message="MetadataValidation"/>
+            <log message="identify publication contract"/>
+        </route>
+    </camelContext>
+</beans>

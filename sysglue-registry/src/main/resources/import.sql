@@ -1,0 +1,2 @@
+INSERT INTO businessobject (id, activated, description, "name") VALUES(nextval('hibernate_sequence'), true, 'test1', 'test1');
+INSERT INTO businessobject(id, activated, description, "name") VALUES(nextval('hibernate_sequence'), true, 'test2', 'test2');

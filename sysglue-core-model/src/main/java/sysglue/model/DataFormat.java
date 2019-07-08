@@ -1,11 +1,9 @@
 package sysglue.model;
 
-import java.io.Serializable;
+
+import java.util.Objects;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -21,9 +19,18 @@ public class DataFormat extends AbstractBaseEntity{
 	
 	private String sample;
 
+	
+	public DataFormat() {
+	}
+
+	public DataFormat(BusinessObjectVersion businessObjectVersion, String schema, String sample) {
+		this.businessObjectVersion = businessObjectVersion;
+		this.schema = schema;
+		this.sample = sample;
+	}
 
 	public BusinessObjectVersion getBusinessObjectVersion() {
-		return businessObjectVersion;
+		return this.businessObjectVersion;
 	}
 
 	public void setBusinessObjectVersion(BusinessObjectVersion businessObjectVersion) {
@@ -31,7 +38,7 @@ public class DataFormat extends AbstractBaseEntity{
 	}
 
 	public String getSchema() {
-		return schema;
+		return this.schema;
 	}
 
 	public void setSchema(String schema) {
@@ -39,13 +46,51 @@ public class DataFormat extends AbstractBaseEntity{
 	}
 
 	public String getSample() {
-		return sample;
+		return this.sample;
 	}
 
 	public void setSample(String sample) {
 		this.sample = sample;
 	}
-	
-	
+
+	public DataFormat businessObjectVersion(BusinessObjectVersion businessObjectVersion) {
+		this.businessObjectVersion = businessObjectVersion;
+		return this;
+	}
+
+	public DataFormat schema(String schema) {
+		this.schema = schema;
+		return this;
+	}
+
+	public DataFormat sample(String sample) {
+		this.sample = sample;
+		return this;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o == this)
+			return true;
+		if (!(o instanceof DataFormat)) {
+			return false;
+		}
+		DataFormat dataFormat = (DataFormat) o;
+		return Objects.equals(businessObjectVersion, dataFormat.businessObjectVersion) && Objects.equals(schema, dataFormat.schema) && Objects.equals(sample, dataFormat.sample);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(businessObjectVersion, schema, sample);
+	}
+
+	@Override
+	public String toString() {
+		return "{" +
+			" businessObjectVersion='" + getBusinessObjectVersion() + "'" +
+			", schema='" + getSchema() + "'" +
+			", sample='" + getSample() + "'" +
+			"}";
+	}
 	
 }

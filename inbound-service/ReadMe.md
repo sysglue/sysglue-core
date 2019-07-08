@@ -1,5 +1,4 @@
-# Spring Boot with camel and other useful things sysglue-registry-service 
-
+# Spring Boot with camel and other useful things inbound-service 
 
 ## To build this project use
 
@@ -29,14 +28,6 @@ http://localhost:8090/webjars/swagger-ui/3.22.0/index.html?url=/camel/api-docs
 ```
 
 ## Call the ping rest operation
-
 ```
 curl http://localhost:8090/camel/restsvc/ping
-```
-
-## Run local container with specific network and IP address
-
-```
-docker build -t sysglue-registry-service  .
-docker run -d --net primenet --ip 172.18.0.10 --name sysglue-registry-service  sysglue-registry-service
 ```
